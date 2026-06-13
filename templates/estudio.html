@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{% if s.fisioterapia %}HealthAndBeautyBusiness{% else %}ExerciseGym{% endif %}",
+  "name": {{ s.nombre|tojson }},
+  "description": {{ description|tojson }},
+  {% if s.direccion %}"address": {
+    "@type": "PostalAddress",
+    "streetAddress": {{ s.direccion|tojson }},
+    "addressLocality": {{ s.municipio|tojson }},
+    "addressRegion": "Valencia",
+    "addressCountry": "ES"
+  },{% endif %}
+  {% if s.telefono %}"telephone": {{ s.telefono|tojson }},{% endif %}
+  {% if s.web %}"url": {{ ('https://' ~ s.web if not s.web.startswith('http') else s.web)|tojson }},{% endif %}
+  {% if s.rating and s.resenas_num %}"aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ s.rating }},
+    "reviewCount": {{ s.resenas_num }}
+  },{% endif %}
+  "priceRange": "€€"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="studio-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="{{ root }}index.html">Directorio</a> / {{ s.municipio }} / {{ s.nombre }}</div>
+    <div class="studio-hero-top">
+      <div>
+        <div class="zone">{{ icons['map-pin'] }} {{ s.zona ~ ', ' if s.zona }}{{ s.municipio }}{{ ' · ' ~ s.direccion if s.direccion }}</div>
+        <h1>{{ s.nombre }}</h1>
+        <div class="badge-row">
+          <span class="badge badge-coral">{{ icons['building'] }} {{ s.equipamiento_label }}</span>
+          {% if s.fisioterapia %}<span class="badge badge-teal">{{ icons['heart'] }} Fisioterapia clínica</span>{% endif %}
+          {% if s.ingles == 'si' %}<span class="badge badge-blue">{{ icons['language'] }} Clases en inglés</span>{% endif %}
+          {% if s.ingles == 'consultar' %}<span class="badge badge-gray">{{ icons['language'] }} Inglés bajo petición</span>{% endif %}
+          {% for t in s.tarifas_tags %}<span class="badge badge-gray">{{ icons['tag'] }} {{ t }}</span>{% endfor %}
+        </div>
+      </div>
+      {% if s.rating %}
+      <div class="rating-block">
+        {{ icons['star'] }} {{ s.rating }}
+        <span class="reviews">({{ s.resenas }} reseñas en Google)</span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<div class="container studio-body">
+  <div class="main">
+
+    <div class="info-card">
+      <h2>{{ icons['building'] }} Equipamiento y servicios</h2>
+      <ul class="detail-list">
+        <li><span class="label">Equipamiento</span><span class="value">{{ s.equipamiento_raw or s.equipamiento_label }}</span></li>
+        <li><span class="label">Servicios</span><span class="value">{{ s.servicios or 'Consultar con el centro.' }}</span></li>
+        <li><span class="label">Niveles</span><span class="value">{{ s.niveles or 'No especificado &mdash; consultar con el centro.' }}</span></li>
+        <li><span class="label">Fisioterapia</span><span class="value">{% if s.fisioterapia %}Sí, dispone de servicio clínico de fisioterapia.{% elif s.fisioterapia is sameas false %}No ofrece fisioterapia clínica.{% else %}No especificado.{% endif %}</span></li>
+        <li><span class="label">Clases en inglés</span><span class="value">
+          {% if s.ingles == 'si' %}Sí, ofrecen clases en inglés.
+          {% elif s.ingles == 'consultar' %}Bajo petición / consultar disponibilidad.
+          {% elif s.ingles == 'no' %}Solo en español.
+          {% else %}No especificado &mdash; consultar con el centro.{% endif %}
+        </span></li>
+      </ul>
+    </div>
+
+    <div class="info-card">
+      <h2>{{ icons['tag'] }} Precios y tarifas</h2>
+      {% if s.precio_suelta or s.bono or s.mensualidad %}
+      <table class="price-table">
+        <thead><tr><th>Modalidad</th><th>Precio</th></tr></thead>
+        <tbody>
+          {% if s.precio_suelta %}<tr><td>Sesión suelta</td><td>{{ s.precio_suelta }}</td></tr>{% endif %}
+          {% if s.bono %}<tr><td>Bonos</td><td>{{ s.bono }}</td></tr>{% endif %}
+          {% if s.mensualidad %}<tr><td>Mensualidad</td><td>{{ s.mensualidad }}</td></tr>{% endif %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>Este centro no publica sus tarifas online.</p>
+      <div class="notice">{{ icons['phone'] }} Contacta directamente con el centro para conocer precios actualizados.</div>
+      {% endif %}
+    </div>
+
+    <div class="info-card">
+      <h2>{{ icons['clock'] }} Horario</h2>
+      <p>{{ s.horario or 'No especificado &mdash; consultar con el centro.' }}</p>
+    </div>
+
+    {% if s.notas %}
+    <div class="info-card">
+      <h2>{{ icons['check'] }} Notas</h2>
+      <p>{{ s.notas }}</p>
+    </div>
+    {% endif %}
+
+  </div>
+
+  <aside class="sidebar">
+    <div class="info-card">
+      <h2>{{ icons['phone'] }} Contacto</h2>
+      <ul class="detail-list">
+        <li><span class="label">Dirección</span><span class="value">{{ s.direccion or 'Consultar' }}</span></li>
+        <li><span class="label">Zona</span><span class="value">{{ s.zona ~ ', ' if s.zona }}{{ s.municipio }}</span></li>
+        {% if s.telefono %}<li><span class="label">Teléfono</span><span class="value"><a href="tel:{{ s.telefono|replace(' ', '') }}">{{ s.telefono }}</a></span></li>{% endif %}
+        {% if s.web %}<li><span class="label">Web</span><span class="value"><a href="{{ s.web if s.web.startswith('http') else 'https://' ~ s.web }}" target="_blank" rel="noopener nofollow">{{ s.web }}</a></span></li>{% endif %}
+      </ul>
+    </div>
+
+    <div class="cta-box">
+      <h3>¿Quieres reservar una clase?</h3>
+      <p>Contacta directamente con {{ s.nombre }} para conocer disponibilidad, precios actualizados y reservar tu primera clase.</p>
+      {% if s.telefono %}
+      <a class="btn btn-primary" href="tel:{{ s.telefono|replace(' ', '') }}">{{ icons['phone'] }} Llamar ahora</a>
+      {% elif s.web %}
+      <a class="btn btn-primary" href="{{ s.web if s.web.startswith('http') else 'https://' ~ s.web }}" target="_blank" rel="noopener nofollow">{{ icons['world'] }} Visitar web</a>
+      {% else %}
+      <a class="btn btn-primary" href="{{ root }}index.html">{{ icons['search'] }} Ver más estudios</a>
+      {% endif %}
+    </div>
+  </aside>
+</div>
+{% endblock %}

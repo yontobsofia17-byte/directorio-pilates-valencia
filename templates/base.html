@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+<link rel="canonical" href="{{ canonical }}">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Directorio Pilates Valencia">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ root }}css/style.css">
+
+{% block jsonld %}{% endblock %}
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a href="{{ root }}index.html" class="logo">
+      <span class="logo-icon">{{ icons['stretching'] if icons.get('stretching') else icons['heart'] }}</span>
+      Pilates Valencia
+    </a>
+    <nav class="main-nav">
+      <a href="{{ root }}index.html"{% if active == 'home' %} class="active"{% endif %}>Directorio</a>
+      <a href="{{ root }}index.html#equipamiento"{% if active == 'guia' %} class="active"{% endif %}>Tipos de Pilates</a>
+      <a href="{{ root }}estudios/fisiobienestar.html">Fisiobienestar</a>
+    </nav>
+  </div>
+</header>
+
+{% block content %}{% endblock %}
+
+<footer class="site-footer">
+  <div class="container">
+    <span>&copy; {{ year }} Directorio Pilates Valencia &mdash; Guía independiente de estudios de pilates en Valencia y alrededores.</span>
+    <span><a href="{{ root }}index.html">Inicio</a></span>
+  </div>
+</footer>
+</body>
+</html>

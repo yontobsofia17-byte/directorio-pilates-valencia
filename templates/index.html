@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estudios de Pilates en Valencia",
+  "itemListElement": [
+{% for s in studios %}
+    {"@type": "ListItem", "position": {{ loop.index }}, "name": {{ s.nombre|tojson }}, "url": "{{ root }}estudios/{{ s.slug }}.html"}{% if not loop.last %},{% endif %}
+{% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">{{ icons['map-pin'] }} {{ studios|length }} estudios en Valencia y alrededores</span>
+    <h1>Encuentra tu estudio de pilates ideal en Valencia</h1>
+    <p class="lead">Directorio independiente con equipamiento, precios, fisioterapia, niveles, idiomas y horarios de los estudios de pilates de Valencia ciudad, Paterna, Torrent, L'Eliana y Aldaia.</p>
+
+    <div class="search-bar">
+      <input type="text" id="f-search" placeholder="Buscar por nombre o zona...">
+      <select id="f-municipio">
+        <option value="">Todas las zonas</option>
+        {% for m in municipios %}
+        <option value="{{ m }}">{{ m }}</option>
+        {% endfor %}
+      </select>
+      <select id="f-equipamiento">
+        <option value="">Todo el equipamiento</option>
+        <option value="reformer">Solo Reformer</option>
+        <option value="suelo">Mat / Suelo</option>
+        <option value="mixto">Todas las máquinas</option>
+      </select>
+      <select id="f-fisio">
+        <option value="">Fisioterapia: indiferente</option>
+        <option value="si">Con fisioterapia</option>
+        <option value="no">Sin fisioterapia</option>
+      </select>
+      <select id="f-ingles">
+        <option value="">Clases en inglés: indiferente</option>
+        <option value="si">Sí ofrecen inglés</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<section class="container" id="equipamiento">
+  <div class="results-bar">
+    <h2 class="mt-0">Todos los estudios</h2>
+    <span class="count" id="results-count">{{ studios|length }} resultados</span>
+  </div>
+
+  <div class="studio-grid" id="studio-grid">
+    {% for s in studios %}
+    <article class="studio-card"
+      data-name="{{ (s.nombre ~ ' ' ~ (s.zona or '') ~ ' ' ~ s.municipio)|lower }}"
+      data-municipio="{{ s.municipio }}"
+      data-equip="{{ s.equipamiento_tipo }}"
+      data-fisio="{{ 'si' if s.fisioterapia else 'no' }}"
+      data-ingles="{{ 'si' if s.ingles == 'si' else 'no' }}">
+      <div class="zone">{{ icons['map-pin'] }} {{ s.zona ~ ', ' if s.zona }}{{ s.municipio }}</div>
+      <h3>{{ s.nombre }}</h3>
+      {% if s.rating %}
+      <div class="rating">{{ icons['star'] }} {{ s.rating }} <span class="reviews">({{ s.resenas }} reseñas)</span></div>
+      {% endif %}
+      <div class="badge-row">
+        <span class="badge badge-coral">{{ icons['building'] }} {{ s.equipamiento_label }}</span>
+        {% if s.fisioterapia %}<span class="badge badge-teal">{{ icons['heart'] }} Fisioterapia</span>{% endif %}
+        {% if s.ingles == 'si' %}<span class="badge badge-blue">{{ icons['language'] }} Inglés</span>{% endif %}
+      </div>
+      <p class="desc">{{ s.servicios }}</p>
+      <div class="card-footer">
+        {% if s.tarifas_tags %}
+        <span class="badge badge-gray">{{ icons['tag'] }} {{ s.tarifas_tags|join(' · ') }}</span>
+        {% else %}
+        <span class="badge badge-gray">{{ icons['tag'] }} Consultar precio</span>
+        {% endif %}
+        <a href="estudios/{{ s.slug }}.html" class="card-link">Ver ficha {{ icons['arrow-right'] }}</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  <div class="empty-state" id="empty-state" style="display:none;">
+    No hay estudios que coincidan con tu búsqueda. Prueba a cambiar los filtros.
+  </div>
+</section>
+
+<script>
+(function() {
+  const search = document.getElementById('f-search');
+  const municipio = document.getElementById('f-municipio');
+  const equipo = document.getElementById('f-equipamiento');
+  const fisio = document.getElementById('f-fisio');
+  const ingles = document.getElementById('f-ingles');
+  const cards = Array.from(document.querySelectorAll('.studio-card'));
+  const count = document.getElementById('results-count');
+  const empty = document.getElementById('empty-state');
+
+  function applyFilters() {
+    const q = search.value.trim().toLowerCase();
+    const m = municipio.value;
+    const e = equipo.value;
+    const f = fisio.value;
+    const i = ingles.value;
+    let visible = 0;
+    cards.forEach(function(card) {
+      let ok = true;
+      if (q && !card.dataset.name.includes(q)) ok = false;
+      if (m && card.dataset.municipio !== m) ok = false;
+      if (e && card.dataset.equip !== e) ok = false;
+      if (f && card.dataset.fisio !== f) ok = false;
+      if (i && card.dataset.ingles !== i) ok = false;
+      card.style.display = ok ? '' : 'none';
+      if (ok) visible++;
+    });
+    count.textContent = visible + (visible === 1 ? ' resultado' : ' resultados');
+    empty.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  [search, municipio, equipo, fisio, ingles].forEach(function(el) {
+    el.addEventListener('input', applyFilters);
+    el.addEventListener('change', applyFilters);
+  });
+})();
+</script>
+{% endblock %}
