@@ -45,8 +45,8 @@
     "mensualidad": null,
     "tarifas_tags": [],
     "horario": null,
-    "rating": null,
-    "resenas": null,
+    "rating": 5.0,
+    "resenas": "15",
     "notas": null
   },
   {
@@ -93,8 +93,8 @@
     "mensualidad": null,
     "tarifas_tags": [],
     "horario": null,
-    "rating": null,
-    "resenas": null,
+    "rating": 4.7,
+    "resenas": "23",
     "notas": null
   },
   {
@@ -295,8 +295,8 @@
     "mensualidad": null,
     "tarifas_tags": [],
     "horario": null,
-    "rating": null,
-    "resenas": null,
+    "rating": 5.0,
+    "resenas": "18",
     "notas": "Estudio ancla del directorio. Sin precios públicos."
   },
   {
@@ -322,8 +322,8 @@
       "Mensualidad"
     ],
     "horario": null,
-    "rating": null,
-    "resenas": null,
+    "rating": 5.0,
+    "resenas": "25",
     "notas": null
   },
   {
@@ -348,8 +348,8 @@
       "Mensualidad"
     ],
     "horario": "l y x de 10 a 18h M y J08:30 A 18 v de 09:30 a 17",
-    "rating": null,
-    "resenas": null,
+    "rating": 5.0,
+    "resenas": "43",
     "notas": null
   },
   {
@@ -420,8 +420,8 @@
     "mensualidad": null,
     "tarifas_tags": [],
     "horario": "L Y X   / 7:30–11:30/ 14:30–21:30 M Y J   / 9:00–14:00/15:00–21:00. V 7:30–20:30",
-    "rating": null,
-    "resenas": "101",
+    "rating": 5.0,
+    "resenas": "109",
     "notas": null
   },
   {
@@ -494,8 +494,8 @@
     "mensualidad": null,
     "tarifas_tags": [],
     "horario": null,
-    "rating": null,
-    "resenas": null,
+    "rating": 4.8,
+    "resenas": "150",
     "notas": "Datos preliminares - requiere verificación adicional"
   },
   {
@@ -542,8 +542,8 @@
     "mensualidad": null,
     "tarifas_tags": [],
     "horario": null,
-    "rating": null,
-    "resenas": null,
+    "rating": 4.9,
+    "resenas": "107",
     "notas": null
   },
   {
@@ -648,8 +648,8 @@
       "Mensualidad"
     ],
     "horario": "L-J 8:30-21:30, V 8:30-19:30",
-    "rating": null,
-    "resenas": "consultar",
+    "rating": 4.7,
+    "resenas": "25",
     "notas": "Datos de tarifas muy completos en su web"
   },
   {
@@ -854,8 +854,8 @@
       "Mensualidad"
     ],
     "horario": null,
-    "rating": null,
-    "resenas": null,
+    "rating": 5.0,
+    "resenas": "24",
     "notas": "Tarifas muy completas y públicas"
   },
   {
@@ -880,8 +880,8 @@
       "Mensualidad"
     ],
     "horario": null,
-    "rating": null,
-    "resenas": null,
+    "rating": 4.3,
+    "resenas": "593",
     "notas": null
   },
   {
@@ -904,8 +904,8 @@
     "mensualidad": null,
     "tarifas_tags": [],
     "horario": null,
-    "rating": null,
-    "resenas": null,
+    "rating": 4.9,
+    "resenas": "54",
     "notas": null
   },
   {
