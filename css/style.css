@@ -496,6 +496,44 @@ p { margin: 0 0 1em; }
 }
 
 /* ============================================
+   Articulos / Blog
+   ============================================ */
+
+.article-wrap {
+  padding: 32px 0 60px;
+  max-width: 760px;
+}
+
+.article-body h2 {
+  margin-top: 2em;
+}
+
+.article-body h3 {
+  margin-top: 1.4em;
+}
+
+.article-body ul, .article-body ol {
+  padding-left: 1.3em;
+  margin: 0 0 1em;
+}
+
+.article-body li { margin-bottom: 0.4em; }
+
+.article-body table.price-table {
+  margin: 1em 0 1.6em;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.article-body table.price-table th, .article-body table.price-table td {
+  padding: 10px 14px;
+}
+
+.article-cta { margin-top: 36px; }
+
+/* ============================================
    Footer
    ============================================ */
 
