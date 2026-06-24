@@ -262,6 +262,42 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Paginas de barrio Valencia -->
+  <url>
+    <loc>https://www.pilatesmediterraneo.com/zona/ciutat-vella-valencia.html</loc>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.pilatesmediterraneo.com/zona/eixample-valencia.html</loc>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.pilatesmediterraneo.com/zona/extramurs-valencia.html</loc>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.pilatesmediterraneo.com/zona/patraix-valencia.html</loc>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.pilatesmediterraneo.com/zona/ruzafa-valencia.html</loc>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Paginas de tipo -->
   <url>
     <loc>https://www.pilatesmediterraneo.com/tipo/reformer.html</loc>
