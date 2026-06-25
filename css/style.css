@@ -534,6 +534,48 @@ p { margin: 0 0 1em; }
 .article-cta { margin-top: 36px; }
 
 /* ============================================
+   Barrio nav chips
+   ============================================ */
+
+.barrio-nav {
+  padding: 28px 0 8px;
+}
+
+.barrio-nav .barrio-nav-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+.barrio-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.barrio-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--color-heading);
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.barrio-chip:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--c-coral-bg);
+}
+
+/* ============================================
    FAQ Section
    ============================================ */
 
